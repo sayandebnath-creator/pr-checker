@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Canada PR Eligibility Checker</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  max-width: 420px;
+  width: 100%;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 13px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #1e40af;
+}
+
+.result {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 12px;
+  display: none;
+  font-size: 14px;
+}
+
+.good { background: #dcfce7; color: #166534; }
+.avg { background: #fef9c3; color: #854d0e; }
+.bad { background: #fee2e2; color: #991b1b; }
+
+.footer {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 15px;
+  color: #9ca3af;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🇨🇦 PR Eligibility Checker</h1>
+  <p>Check your basic eligibility for Canada PR</p>
+
+  <label class="label">Age</label>
+  <select id="age">
+    <option value="">Select age</option>
+    <option value="2">18–30</option>
+    <option value="1">31–40</option>
+    <option value="0">40+</option>
+  </select>
+
+  <label class="label">Education</label>
+  <select id="edu">
+    <option value="">Select education</option>
+    <option value="2">Master's or higher</option>
+    <option value="1">Bachelor's</option>
+    <option value="0">Diploma or below</option>
+  </select>
+
+  <label class="label">English (IELTS)</label>
+  <select id="eng">
+    <option value="">Select score</option>
+    <option value="2">8+</option>
+    <option value="1">6–7</option>
+    <option value="0">Below 6</option>
+  </select>
+
+  <button onclick="calculate()">Check Eligibility</button>
+
+  <div id="result" class="result"></div>
+
+  <div class="footer">Simple estimate • Not official CRS score</div>
+</div>
+
+<script>
+function calculate() {
+  const age = document.getElementById("age").value;
+  const edu = document.getElementById("edu").value;
+  const eng = document.getElementById("eng").value;
+
+  if (!age || !edu || !eng) {
+    showResult("Please complete all fields.", "bad");
+    return;
+  }
+
+  const score = Number(age) + Number(edu) + Number(eng);
+
+  if (score >= 5) {
+    showResult("Strong profile. You likely qualify for Express Entry.", "good");
+  } else if (score >= 3) {
+    showResult("Moderate profile. Improving IELTS or education can help.", "avg");
+  } else {
+    showResult("Low eligibility currently. Focus on improving key factors.", "bad");
+  }
+}
+
+function showResult(message, type) {
+  const box = document.getElementById("result");
+  box.style.display = "block";
+  box.className = "result " + type;
+  box.innerText = message;
+}
+</script>
+
+</body>
+</html>
