@@ -2,6 +2,8 @@
 
 A simple, responsive web widget that estimates basic eligibility for Canada Permanent Residency (PR) based on key factors.
 
+[Web Ui](./ui.png)
+
 ## Features
 
 - Three input parameters:
